@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Shell Game</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cup {
+      width: 100px;
+      height: 100px;
+      background-color: white;
+      border: 2px solid black;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    #button {
+      margin-top: 20px;
+    }
+
+    @keyframes move-left {
+      0% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(-100px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes move-right {
+      0% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(100px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="cup" id="cup1"></div>
+    <div class="cup" id="cup2"></div>
+    <div class="cup" id="cup3"></div>
+  </div>
+  <button id="button">Click me!</button>
+
+  <script>
+    const cups = document.querySelectorAll('.cup');
+    const button = document.querySelector('#button');
+
+    button.addEventListener('click', () => {
+      // Move cups to center
+      cups[0].style.animation = 'move-left 1s forwards';
+      cups[1].style.animation = 'move-right 1s forwards';
+
+      // Move cups back to initial position
+      setTimeout(() => {
+        cups[0].style.animation = '';
+        cups[1].style.animation = '';
+      }, 1000);
+
+      // Randomly select cup to hide button
+      const randomIndex = Math.floor(Math.random() * 3);
+      cups[randomIndex].appendChild(button);
+    });
+  </script>
+</body>
+</html>
